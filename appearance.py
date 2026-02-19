@@ -1,0 +1,151 @@
+import random
+
+def generate_appearance():
+    appearance = {
+        # Physique
+        "NeckLength": str(random.randint(-7, 7)),
+        "NeckSize": str(random.randint(-7, 7)),
+        "ShoulderHeight": str(random.randint(-7, 7)),
+        "ShoulderWidth": str(random.randint(-7, 7)),
+        "ChestMeasurement": str(random.randint(-7, 7)),
+        "WaistSize": str(random.randint(-7, 7)),
+        "ArmSize": str(random.randint(-7, 7)),
+        "ThighSize": str(random.randint(-7, 7)),
+        "CalfSize": str(random.randint(-7, 7)),
+        "LegLength": str(random.randint(-7, 7)),
+        "ArmLength": str(random.randint(-7, 7)),
+        
+        # Skin Colour/Head Ratio
+        "SkinColour": str(random.randint(1, 6)),
+        "HeadLength": str(random.randint(-7, 7)),
+        "HeadWidth": str(random.randint(-7, 7)),
+        "HeadDepth": str(random.randint(-7, 7)),
+        "FaceHeight": str(random.randint(-7, 7)),
+        "FaceSize": str(random.randint(-7, 7)),
+        
+        # Eyes
+        "UpperEyelidType": str(random.randint(1, 8)),
+        "BottomEyelidType": str(random.randint(1, 7)),
+        "EyeHeight": str(random.randint(-7, 7)),
+        "HorizontalEyePosition": str(random.randint(-7, 7)),
+        "IrisColour": str(random.randint(1, 11)),
+        "PupilSize": str(random.randint(-7, 7)),
+        "UpperEyelidHt.(Inner)": str(random.randint(-7, 7)),
+        "UpperEyelidWd.(Inner)": str(random.randint(-7, 7)),
+        "UpperEyelidHt.(Outer)": str(random.randint(-7, 7)),
+        "UpperEyelidWd.(Outer)": str(random.randint(-7, 7)),
+        "InnerEyeHeight": str(random.randint(-7, 7)),
+        "InnerEyePosition": str(random.randint(-7, 7)),
+        "EyeCornerHeight": str(random.randint(-7, 7)),
+        "OuterEyePosition": str(random.randint(-7, 7)),
+        "BottomEyelidHeight": str(random.randint(-7, 7)),
+        "EyeDepth": str(random.randint(-7, 7)),
+        
+        # Forehead/Eyebrows
+        "Forehead": str(random.randint(1, 7)),
+        "EyebrowType": str(random.randint(1, 8)),
+        "EyebrowThickness": str(random.randint(0, 2)),
+        "EyebrowStyle": str(random.randint(0, 2)),
+        "EyebrowDensity": str(random.randint(0, 3)),
+        "EyebrowColourR": str(random.randint(0, 63)),
+        "EyebrowColourG": str(random.randint(0, 63)),
+        "EyebrowColourB": str(random.randint(0, 63)),
+        "InnerEyebrowHeight": str(random.randint(-7, 7)),
+        "BrowWidth": str(random.randint(-7, 7)),
+        "OuterEdyebrowHeight": str(random.randint(-7, 7)),
+        "TempleWidth": str(random.randint(-7, 7)),
+        "EyebrowDepth": str(random.randint(-7, 7)),
+        
+        # Nose
+        "NoseType": str(random.randint(1, 8)),
+        "LaughterLines": str(random.randint(1, 5)),
+        "NoseHeight": str(random.randint(-7, 7)),
+        "NostrilWidth": str(random.randint(-7, 7)),
+        "NoseWidth": str(random.randint(-7, 7)),
+        "NoseTipDepth": str(random.randint(-7, 7)),
+        "NoseDepth": str(random.randint(-7, 7)),
+        
+        # Mouth
+        "UpperLipType": str(random.randint(1, 5)),
+        "LowerLipType": str(random.randint(1, 5)),
+        "MouthPosition": str(random.randint(-7, 7)),
+        "LipSize": str(random.randint(-7, 7)),
+        "LipWidth": str(random.randint(-7, 7)),
+        "MouthCornerHeight": str(random.randint(-7, 7)),
+        "MouthDepth": str(random.randint(-7, 7)),
+        
+        # Facial Hair
+        "FacialHairType": str(random.randint(0, 18)),
+        "FacialHairColourR": str(random.randint(0, 63)),
+        "FacialHairColourG": str(random.randint(0, 63)),
+        "FacialHairColourB": str(random.randint(0, 63)),
+        "Thickness": str(random.randint(0, 3)),
+        
+        # Cheeks/Jaw/Chin
+        "CheekType": str(random.randint(0, 4)),
+        "NeckLineType": str(random.randint(0, 4)),
+        "Cheekbones": str(random.randint(-7, 7)),
+        "ChinHeight": str(random.randint(-7, 7)),
+        "ChinWidth": str(random.randint(-7, 7)),
+        "JawHeight": str(random.randint(-7, 7)),
+        "Jawline": str(random.randint(-7, 7)),
+        "ChinDepth": str(random.randint(-7, 7)),
+        
+        # Ears
+        "EarLength": str(random.randint(-7, 7)),
+        "EarWidth": str(random.randint(-7, 7)),
+        "EarAngle": str(random.randint(-7, 7)),
+        
+        # Hairstyle
+        "Overall-Style": str(random.randint(0, 7)),
+        "Overall-Length": str(random.randint(0, 5)),
+        "Overall-WaveLevel": str(random.randint(0, 7)),
+        "Overall-HairVariation": str(random.randint(0, 29)),
+        "Font-Style": str(random.randint(0, 3)),
+        "Font-Parted": str(random.randint(0, 6)),
+        "Font-Hairline": str(random.randint(0, 3)),
+        "Font-ForeheadWidth": str(random.randint(0, 3)),
+        "Side/Back-Style": str(random.randint(0, 4)),
+        "Side/Back-Cropped": str(random.randint(0, 6)),
+        "HairColourR": str(random.randint(0, 63)),
+        "HairColourG": str(random.randint(0, 63)),
+        "HairColourB": str(random.randint(0, 63)),
+        "AccessoryColour": str(random.randint(1, 8)),
+        "HairColour": str(random.randint(1, 9)),
+        "Accessories": "True" if random.randint(1, 10000) == 1 else "False",
+        
+        # Strip Style
+        "Wristtaping": str(random.randint(0, 4)),
+        "WristTapeColour1": str(random.randint(0, 10)),
+        "WristTapeColour2": str(random.randint(0, 10)),
+        "AnkleTaping": str(random.randint(0, 4)),
+        "PlayerGloves": str(random.randint(0, 5)),
+        "Colour": str(random.randint(1, 6)),
+        "Undershorts": str(random.randint(0, 2)),
+        "Sleeves": str(random.randint(0, 2)),
+        "Shirttail": str(random.randint(0, 2)),
+        "SockLength": str(random.randint(0, 2)),
+        "Long-SleevedInners": str(random.randint(0, 2)),
+        
+        # Misc Values
+        "ValueAp1": "0",
+        "ValueAp2": "1",
+        "ValueAp3": str(random.randint(0, 15)),
+        "ValueAp4": str(random.randint(0, 15)),
+        "ValueAp5": str(random.randint(0, 15)),
+        "ValueAp6": str(random.randint(0, 15)),
+        "ValueAp7": "0",
+        "ValueAp8": str(random.randint(0, 2)),
+        "ValueAp9": str(random.randint(0, 15)),
+        "ValueAp10": str(random.randint(0, 63)),
+        "ValueAp11": str(random.randint(0, 63)),
+        "ValueAp12": str(random.randint(0, 63)),
+        "ValueAp13": "0",
+        "ValueAp14": "0",
+        "ValueAp15": str(random.randint(0, 2)),
+        "ValueAp16": "0",
+        "ValueAp17": "0",
+        "ValueAp18": "0",
+        "ValueAp19": "0",
+    }
+    return appearance
