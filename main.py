@@ -81,7 +81,7 @@ class PlayerGenerator:
         # Rating
         rating = kwargs.get("Rating", None)
         if rating is None:
-            rating = max(109, min(40, random.gauss(70, 25)))
+            rating = min(109, max(40, int(random.gauss(70, 25))))
         
         abilities = generate_abilities(position, rating, style=playing_style)
 
@@ -175,6 +175,20 @@ class PlayerGenerator:
         player["EditPhysique"] = "False"
         player["EditStrip"] = "False"
         player["ValueA"] = "0"
+
+        # Campos conocidos que son parámetros de alto nivel (no overrides directos)
+        reserved_kwargs = {
+            "Name", "Position", "Age", "Height", "Weight", "Country",
+            "Foot", "Rating", "PlayingStyle", "Id", "Shirt", "ShirtNational", "WeakFootStats"
+        }
+        
+        # Filtrar kwargs que no son reservados = son overrides directos al player
+        overrides = {k: str(v) for k, v in kwargs.items() if k not in reserved_kwargs}
+        
+        for key, value in overrides.items():
+            if key not in player:
+                raise ValueError(f"Field '{key}' does not exist in the player. Check the available fields.")
+            player[key] = value
         
         return player
     
