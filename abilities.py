@@ -137,15 +137,22 @@ def generate_abilities_dice_system(position, rating=75, style=None):
 
         final_value = None
         for attempt, (range_name, range_limits) in enumerate(ranges.items()):
-            roll = random.randint(BASE_MIN, BASE_MAX)
+            # In case the range limits are out of bounds, this prevents multiple rolls in extreme ranges
+            roll_min = min(range_limits['min'], BASE_MIN)
+            roll_max = max(range_limits['max'], BASE_MAX)
+            roll = random.randint(roll_min, roll_max)
 
             if range_limits['min'] <= roll <= range_limits['max']:
                 final_value = roll
+                print(f"{attempt}: {roll}")
                 break
 
             if attempt == len(ranges) - 1:
+                print(f"{attempt}: {roll}")
                 final_value = max(range_limits['min'], min(range_limits['max'], roll))
 
+        # Clamps the value
+        final_value = max(BASE_MIN, min(BASE_MAX, final_value))
         abilities[ability] = str(final_value)
 
     return abilities
@@ -158,7 +165,7 @@ def calculate_ranges(rating, weight, MAX_WEIGHT=0.36):
     BASE_MAX = 99 # maximum ability value
 
     # This prevents high weights from being exponential
-    limit = 100000
+    limit = 2000
 
     # Here I used 0.02 as a "reference weight" to make the curve threshold, but using the max weight works better
     # weight_factor = (math.log(1 + limit * weight) / math.log(1 + limit * 0.02))  
@@ -206,31 +213,26 @@ def calculate_ranges(rating, weight, MAX_WEIGHT=0.36):
     # Apply a weight_factor adjustment so that the weight still influences the calculation
     # This shifts the center based on how weighted the calculation is
     # center = center - RATING_RANGE * (1 - weight_factor) * 0.5
-    # center = center - impacto_peso * (1 - weight_factor) # BRUTALLL but 0.0 doesn't give 40
+    # center = center - weight_impact * (1 - weight_factor) # BRUTALLL but 0.0 doesn't give 40
     center = BASE_MIN + (center - BASE_MIN) * weight_factor
 
     # OFFSET: The results always end up being 6-7 points less than they should be for the given ratings
-    OFFSET = 2
-    center = center + OFFSET
+    # OFFSET = 2
+    # center = center + OFFSET
 
     center = max(BASE_MIN, min(BASE_MAX, center))
 
     print(f"WF: {weight_factor:.4f} Center: {center:6.2f}", end=" ")
     
     range_definitions = [
-        ('A', 4),
+        ('A', 3),
         ('B', 6),
-        ('C', 8),
-        ('D', 10),
-        ('E', 12),
-        ('F', 14),
-        ('G', 16),
-        ('H', 18),
-        ('I', 20),
-        ('J', 22),
-        ('K', 24),
-        ('L', 26),
-        ('M', 28),
+        ('C', 9),
+        ('D', 12),
+        ('E', 16),
+        ('F', 20),
+        ('G', 24),
+        ('H', 28),
     ]
 
     ranges = {}
@@ -238,13 +240,13 @@ def calculate_ranges(rating, weight, MAX_WEIGHT=0.36):
     # Dynamic range calculator
     for range_name, amplitude in range_definitions:
         ranges[range_name] = {
-            'min': max(BASE_MIN, int(center - amplitude)),
-            'max': min(BASE_MAX, int(center + amplitude))
+            'min': int(center - amplitude), # Removed the min and max because it
+            'max': int(center + amplitude)  # caused multiple rolls in the extreme ranges
         }
 
     # FOR TESTING
-    # for range_name, amplitude in range_definitions:
-    #     print(f"{range_name}:{ranges[range_name]['min']:3}-{ranges[range_name]['max']:2}", end=" ")
+    for range_name, amplitude in range_definitions:
+        print(f"{range_name}:{ranges[range_name]['min']:3}-{ranges[range_name]['max']:2}", end=" ")
     # print()
 
     return ranges
@@ -255,8 +257,8 @@ def generate_abilities(position, rating=75, style=None):
 
 # TESTS
 if __name__ == "__main__":
-    rating = 90
-    position = "DMF"
+    rating = 65
+    position = "CF"
     print("\n" + "="*50)
     print("GENERATING A ", position, "WITH", rating, "RATING:")
     print("="*50)
