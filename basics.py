@@ -7,18 +7,27 @@ def generate_id():
     return str(random.randint(100000, 999999))
 
 def generate_shirt_name(name):
+    name = name.upper()
     parts = name.split()
     if len(parts) >= 2:
         return parts[-1] 
     else:
         return name 
-
+    
+def format_name(name):
+    name = name.upper()
+    parts = name.split()
+    for i in range(len(parts)-1):
+        parts[i] = parts[i][0] + "."
+    last_name = parts[-1]
+    first_names = parts[:-1]
+    print(first_names, last_name)
+    return " ".join(first_names) + " " + last_name
 
 def generate_country_code():
     return str(random.choice(list(COUNTRY_CODES.values())))
 
 def generate_height(position):
-    print(f"Generating height for position: {position}")
     position_heights = {
         "GK": {"mean": 188, "std": 5, "min": 160, "max": 210},
         "0": {"mean": 188, "std": 5, "min": 160, "max": 210},  # GK
