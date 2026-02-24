@@ -2,195 +2,203 @@ import random
 import numpy as np
 
 RACE_GROUPS = {
-    1: {
-        "name": "Nordic / Northern European",
+    "nordic": {
         "skin_range": (1, 2),
         "prob": 8,
-        "iris_light_prob": 0.55,
-        "eye_mongoloid_factor": 0.05,
-        "nose_height": 2.0,
-        "nose_width": -1.8,
-        "nostril_width": -2.0,
-        "lips_full": -1.5,
-        "lip_thickness": -1.2,
-        "cheekbones": 1.5,
-        "chin_projection": 1.8,
-        "jaw_square": 0.8,
-        "eyebrow_density": -0.5,
-        "eye_depth": -1.0,
+        "hair_weights": [10, 15, 20, 10, 20, 10, 10, 5],
+        "iris_weights": [5, 15, 20, 15, 12, 8, 8, 7, 3, 5, 2],
+        "features": {
+            "NoseHeight": 2.0,
+            "NoseWidth": -1.8,
+            "NostrilWidth": -2.0,
+            "LipsFull": -1.5,
+            "LipThickness": -1.2,
+            "Cheekbones": 1.5,
+            "ChinProjection": 1.8,
+            "JawSquare": 0.8,
+            "EyebrowDensity": -0.5,
+            "EyeDepth": -1.0,
+        }
     },
-    2: {
-        "name": "Mediterranean / Southern European",
+    "mediterranean": {
         "skin_range": (2, 3),
         "prob": 12,
-        "iris_light_prob": 0.25,
-        "eye_mongoloid_factor": 0.10,
-        "nose_height": 1.2,
-        "nose_width": -0.8,
-        "nostril_width": -0.5,
-        "lips_full": -0.5,
-        "lip_thickness": -0.3,
-        "cheekbones": 1.0,
-        "chin_projection": 1.0,
-        "jaw_square": 1.2,
-        "eyebrow_density": 0.3,
-        "eye_depth": -0.5,
+        "hair_weights": [12, 12, 10, 15, 25, 15, 8,  3],
+        "iris_weights": [5, 18, 22, 15, 10, 7, 7, 6, 3, 5, 2],
+        "features": {
+            "NoseHeight": 1.2,
+            "NoseWidth": -0.8,
+            "NostrilWidth": -0.5,
+            "LipsFull": -0.5,
+            "LipThickness": -0.3,
+            "Cheekbones": 1.0,
+            "ChinProjection": 1.0,
+            "JawSquare": 1.2,
+            "EyebrowDensity": 0.3,
+            "EyeDepth": -0.5,
+        }
     },
-    3: {
-        "name": "East European / Slavic",
+    "slavic": {
         "skin_range": (2, 3),
         "prob": 7,
-        "iris_light_prob": 0.15,
-        "eye_mongoloid_factor": 0.15,
-        "nose_height": 0.8,
-        "nose_width": 0.0,
-        "nostril_width": 0.2,
-        "lips_full": 0.0,
-        "lip_thickness": 0.2,
-        "cheekbones": 1.2,
-        "chin_projection": 0.5,
-        "jaw_square": 1.8,
-        "eyebrow_density": 1.0,
-        "eye_depth": 0.0,
+        "hair_weights": [12, 12, 10, 15, 25, 15, 8,  3],
+        "iris_weights": [5, 18, 22, 15, 10, 7, 7, 6, 3, 5, 2],
+        "features": {
+            "NoseHeight": 0.8,
+            "NoseWidth": 0.0,
+            "NostrilWidth": 0.2,
+            "LipsFull": 0.0,
+            "LipThickness": 0.2,
+            "Cheekbones": 1.2,
+            "ChinProjection": 0.5,
+            "JawSquare": 1.8,
+            "EyebrowDensity": 1.0,
+            "EyeDepth": 0.0,
+        }
     },
-    4: {
-        "name": "Mestizo / Latin American mixed",
+    "mestizo": {
         "skin_range": (3, 4),
         "prob": 12,
-        "iris_light_prob": 0.08,
-        "eye_mongoloid_factor": 0.25,
-        "nose_height": 0.0,
-        "nose_width": 0.8,
-        "nostril_width": 1.0,
-        "lips_full": 1.2,
-        "lip_thickness": 1.0,
-        "cheekbones": 0.5,
-        "chin_projection": 0.0,
-        "jaw_square": 0.5,
-        "eyebrow_density": 0.4,
-        "eye_depth": 0.2,
+        "hair_weights": [1,  1,  0,  40, 25, 28, 3,  2],
+        "iris_weights": [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0],
+        "features": {
+            "NoseHeight": 0.0,
+            "NoseWidth": 0.8,
+            "NostrilWidth": 1.0,
+            "LipsFull": 1.2,
+            "LipThickness": 1.0,
+            "Cheekbones": 0.5,
+            "ChinProjection": 0.0,
+            "JawSquare": 0.5,
+            "EyebrowDensity": 0.4,
+            "EyeDepth": 0.2,
+        }
     },
-    5: {
-        "name": "Middle Eastern / North African",
+    "arab": {
         "skin_range": (3, 4),
         "prob": 8,
-        "iris_light_prob": 0.05,
-        "eye_mongoloid_factor": 0.45,
-        "nose_height": 1.8,
-        "nose_width": 0.5,
-        "nostril_width": 0.3,
-        "lips_full": 0.5,
-        "lip_thickness": 0.4,
-        "cheekbones": 0.8,
-        "chin_projection": 0.8,
-        "jaw_square": 1.0,
-        "eyebrow_density": 1.5,
-        "eye_depth": 0.3,
+        "hair_weights": [1,  1,  0,  40, 25, 28, 3,  2],
+        "iris_weights": [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0],
+        "features": {
+            "NoseHeight": 1.8,
+            "NoseWidth": 0.5,
+            "NostrilWidth": 0.3,
+            "LipsFull": 0.5,
+            "LipThickness": 0.4,
+            "Cheekbones": 0.8,
+            "ChinProjection": 0.8,
+            "JawSquare": 1.0,
+            "EyebrowDensity": 1.5,
+            "EyeDepth": 0.3,
+        }
     },
-    6: {
-        "name": "South Asian",
+    "south asian": {
         "skin_range": (4, 5),
         "prob": 15,
-        "iris_light_prob": 0.01,
-        "eye_mongoloid_factor": 0.10,
-        "nose_height": -0.5,
-        "nose_width": 1.2,
-        "nostril_width": 1.5,
-        "lips_full": 0.8,
-        "lip_thickness": 0.6,
-        "cheekbones": 0.0,
-        "chin_projection": -0.3,
-        "jaw_square": 0.4,
-        "eyebrow_density": 1.2,
-        "eye_depth": 0.5,
+        "hair_weights": [0,  0,  0,  55, 15, 25, 3,  2],
+        "iris_weights": [20, 40, 30, 7, 1, 1, 1, 0, 0, 0, 0],
+        "features": {
+            "NoseHeight": -0.5,
+            "NoseWidth": 1.2,
+            "NostrilWidth": 1.5,
+            "LipsFull": 0.8,
+            "LipThickness": 0.6,
+            "Cheekbones": 0.0,
+            "ChinProjection": -0.3,
+            "JawSquare": 0.4,
+            "EyebrowDensity": 1.2,
+            "EyeDepth": 0.5,
+        }
     },
-    7: {
-        "name": "East Asian",
+    "east asian": {
         "skin_range": (3, 4),
         "prob": 18,
-        "iris_light_prob": 0.01,
-        "eye_mongoloid_factor": 0.95,
-        "nose_height": -1.8,
-        "nose_width": -0.5,
-        "nostril_width": -0.8,
-        "lips_full": -1.0,
-        "lip_thickness": -1.2,
-        "cheekbones": 0.8,
-        "chin_projection": -0.8,
-        "jaw_square": -0.5,
-        "eyebrow_density": -0.3,
-        "eye_depth": 1.0,
+        "hair_weights": [0,  0,  0,  55, 15, 25, 3,  2],
+        "iris_weights": [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0],
+        "features": {
+            "NoseHeight": -1.8,
+            "NoseWidth": -0.5,
+            "NostrilWidth": -0.8,
+            "LipsFull": -1.0,
+            "LipThickness": -1.2,
+            "Cheekbones": 0.8,
+            "ChinProjection": -0.8,
+            "JawSquare": -0.5,
+            "EyebrowDensity": -0.3,
+            "EyeDepth": 1.0,
+        }
     },
-    8: {
-        "name": "Southeast Asian",
+    "southeast asian": {
         "skin_range": (4, 5),
         "prob": 10,
-        "iris_light_prob": 0.01,
-        "eye_mongoloid_factor": 0.85,
-        "nose_height": -1.2,
-        "nose_width": 0.5,
-        "nostril_width": 0.8,
-        "lips_full": -0.5,
-        "lip_thickness": -0.6,
-        "cheekbones": 0.6,
-        "chin_projection": -0.5,
-        "jaw_square": -0.3,
-        "eyebrow_density": 0.2,
-        "eye_depth": 0.8,
+        "hair_weights": [0,  0,  0,  65, 10, 20, 3,  2],
+        "iris_weights": [20, 40, 30, 7, 1, 1, 1, 0, 0, 0, 0],
+        "features": {
+            "NoseHeight": -1.2,
+            "NoseWidth": 0.5,
+            "NostrilWidth": 0.8,
+            "LipsFull": -0.5,
+            "LipThickness": -0.6,
+            "Cheekbones": 0.6,
+            "ChinProjection": -0.5,
+            "JawSquare": -0.3,
+            "EyebrowDensity": 0.2,
+            "EyeDepth": 0.8,
+        }
     },
-    9: {
-        "name": "Sub-Saharan African",
+    "sub-saharan": {
         "skin_range": (5, 6),
         "prob": 12,
-        "iris_light_prob": 0.00,
-        "eye_mongoloid_factor": 0.05,
-        "nose_height": -2.2,
-        "nose_width": 2.5,
-        "nostril_width": 3.0,
-        "lips_full": 2.5,
-        "lip_thickness": 2.2,
-        "cheekbones": -1.2,
-        "chin_projection": 0.5,
-        "jaw_square": 0.3,
-        "eyebrow_density": 0.8,
-        "eye_depth": 1.5,           
+        "hair_weights": [0,  0,  0,  65, 10, 20, 3,  2],
+        "iris_weights": [60, 35, 4, 1, 0, 0, 0, 0, 0, 0, 0],
+        "features": {
+            "NoseHeight": -2.2,
+            "NoseWidth": 2.5,
+            "NostrilWidth": 3.0,
+            "LipsFull": 2.5,
+            "LipThickness": 2.2,
+            "Cheekbones": -1.2,
+            "ChinProjection": 0.5,
+            "JawSquare": 0.3,
+            "EyebrowDensity": 0.8,
+            "EyeDepth": 1.5,
+        }
     },
-    10: {
-        "name": "Oceanic / Indigenous mixed",
+    "oceanic": {
         "skin_range": (4, 6),
         "prob": 5,
-        "iris_light_prob": 0.02,
-        "eye_mongoloid_factor": 0.30,
-        "nose_height": -1.0,
-        "nose_width": 1.8,
-        "nostril_width": 2.0,
-        "lips_full": 1.5,
-        "lip_thickness": 1.3,
-        "cheekbones": 1.0,
-        "chin_projection": 0.0,
-        "jaw_square": 0.6,
-        "eyebrow_density": 0.7,
-        "eye_depth": 0.7,
+        "hair_weights": [0,  0,  0,  60, 15, 20, 3,  2],
+        "iris_weights": [40, 45, 12, 2, 0, 0, 1, 0, 0, 0, 0],
+        "features": {
+            "NoseHeight": -1.0,
+            "NoseWidth": 1.8,
+            "NostrilWidth": 2.0,
+            "LipsFull": 1.5,
+            "LipThickness": 1.3,
+            "Cheekbones": 1.0,
+            "ChinProjection": 0.0,
+            "JawSquare": 0.6,
+            "EyebrowDensity": 0.7,
+            "EyeDepth": 0.7,
+        }
     },
-    11: {
-        "name": "Random",
+    "random": {
         "skin_range": (1, 6),
         "prob": 3,
-        "iris_light_prob": 0.30,
-        "eye_mongoloid_factor": 0.20,
-        "nose_height": 0.0,
-        "nose_width": 0.0,
-        "nostril_width": 0.0,
-        "lips_full": 0.0,
-        "lip_thickness": 0.0,
-        "cheekbones": 0.0,
-        "chin_projection": 0.0,
-        "jaw_square": 0.0,
-        "eyebrow_density": 0.0,
-        "eye_depth": 0.0,
+        "hair_weights": [10, 10, 10, 20, 20, 15, 10, 5],
+        "iris_weights": [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0],
+        "features": {}
+    },
+    "test": {
+        "skin_range": (6, 6),
+        "prob": 3,
+        "hair_weights": [100, 0, 0, 0, 0, 0, 0, 0],
+        "iris_weights": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "features": {}
     }
 }
 
+RACE_IDS = list(RACE_GROUPS.keys())
 RACE_WEIGHTS = [g["prob"] for g in RACE_GROUPS.values()]
 
 def clipped_gaussian(mean, std_dev, min_val, max_val):
@@ -201,299 +209,139 @@ def clipped_gaussian(mean, std_dev, min_val, max_val):
         val = max(min_val, min(val, max_val))
         return int(round(val))
 
-def generate_eye_features(skin_colour):
+def get_feature_value(race_data, feature_name, default_mean=0, std_dev=2.0, min_val=-7, max_val=7):
+    # Get mean from race data or use default
+    mean = race_data.get("features", {}).get(feature_name, default_mean)
+    return clipped_gaussian(mean, std_dev, min_val, max_val)
+
+def generate_eye_features(race_data, skin_colour):
     features = {}
 
-    if skin_colour in [1, 2]:
-        features["UpperEyelidType"] = clipped_gaussian(3, 1.5, 1, 8)
-        features["BottomEyelidType"] = clipped_gaussian(3, 1.5, 1, 7)
-    elif skin_colour in [3, 4]:
-        features["UpperEyelidType"] = clipped_gaussian(4, 1.5, 1, 8)
-        features["BottomEyelidType"] = clipped_gaussian(4, 1.2, 1, 7)
-    else:  # 5, 6
-        features["UpperEyelidType"] = clipped_gaussian(6, 1.2, 1, 8)
-        features["BottomEyelidType"] = clipped_gaussian(5, 1.2, 1, 7)
+    # Eyes: Types must be random style selections
+    features["UpperEyelidType"] = random.randint(1, 7) # Style selection
+    features["BottomEyelidType"] = random.randint(1, 7) # Style selection
 
-    features["EyeHeight"] = clipped_gaussian(0, 2, -7, 7)
-    features["HorizontalEyePosition"] = clipped_gaussian(0, 2, -7, 7)
+    # Positions and gradual values from race data
+    features["EyeHeight"] = get_feature_value(race_data, "EyeHeight")
+    features["HorizontalEyePosition"] = get_feature_value(race_data, "HorizontalEyePosition")
 
-    if skin_colour == 1:  # Pale
-        iris_weights = [5, 15, 20, 15, 12, 8, 8, 7, 3, 5, 2]
-    elif skin_colour == 2:  # White
-        iris_weights = [5, 18, 22, 15, 10, 7, 7, 6, 3, 5, 2]
-    elif skin_colour == 3:  # Medium
-        iris_weights = [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0]
-    elif skin_colour == 4:  # Brown
-        iris_weights = [20, 40, 30, 7, 1, 1, 1, 0, 0, 0, 0]
-    elif skin_colour == 5:  # Dark
-        iris_weights = [40, 45, 12, 2, 0, 0, 1, 0, 0, 0, 0]
-    else:  # 6 - Black
-        iris_weights = [60, 35, 4, 1, 0, 0, 0, 0, 0, 0, 0]
-
+    # Iris colour based on race data
+    iris_weights = race_data.get("iris_weights", [10, 30, 35, 15, 4, 2, 2, 1, 0, 1, 0])
     features["IrisColour"] = random.choices(range(1, 12), weights=iris_weights)[0]
+    features["PupilSize"] = get_feature_value(race_data, "PupilSize")
 
-    features["PupilSize"] = clipped_gaussian(0, 2, -7, 7)
+    # Gradual eyelid measurements
+    eyelid_mean = 1 if skin_colour >= 5 else (0 if skin_colour in [3, 4] else -1)
+    features["UpperEyelidHt.(Inner)"] = get_feature_value(race_data, "UpperEyelidHt.(Inner)", eyelid_mean)
+    features["UpperEyelidWd.(Inner)"] = get_feature_value(race_data, "UpperEyelidWd.(Inner)", eyelid_mean)
+    features["UpperEyelidHt.(Outer)"] = get_feature_value(race_data, "UpperEyelidHt.(Outer)", eyelid_mean)
+    features["UpperEyelidWd.(Outer)"] = get_feature_value(race_data, "UpperEyelidWd.(Outer)", eyelid_mean)
 
-    if skin_colour in [1, 2]:
-        features["UpperEyelidHt.(Inner)"] = clipped_gaussian(-1, 2, -7, 7)
-        features["UpperEyelidWd.(Inner)"] = clipped_gaussian(-1, 2, -7, 7)
-        features["UpperEyelidHt.(Outer)"] = clipped_gaussian(-1, 2, -7, 7)
-        features["UpperEyelidWd.(Outer)"] = clipped_gaussian(-1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["UpperEyelidHt.(Inner)"] = clipped_gaussian(0, 2, -7, 7)
-        features["UpperEyelidWd.(Inner)"] = clipped_gaussian(0, 2, -7, 7)
-        features["UpperEyelidHt.(Outer)"] = clipped_gaussian(0, 2, -7, 7)
-        features["UpperEyelidWd.(Outer)"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["UpperEyelidHt.(Inner)"] = clipped_gaussian(1, 2, -7, 7)
-        features["UpperEyelidWd.(Inner)"] = clipped_gaussian(1, 2, -7, 7)
-        features["UpperEyelidHt.(Outer)"] = clipped_gaussian(1, 2, -7, 7)
-        features["UpperEyelidWd.(Outer)"] = clipped_gaussian(1, 2, -7, 7)
-
-    features["InnerEyeHeight"] = clipped_gaussian(0, 2, -7, 7)
-    features["InnerEyePosition"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["EyeCornerHeight"] = clipped_gaussian(-1, 2, -7, 7)
-    else:
-        features["EyeCornerHeight"] = clipped_gaussian(0, 2, -7, 7)
-
-    features["OuterEyePosition"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["BottomEyelidHeight"] = clipped_gaussian(-1, 2, -7, 7)
-    else:
-        features["BottomEyelidHeight"] = clipped_gaussian(1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["EyeDepth"] = clipped_gaussian(-2, 2, -7, 7) 
-    elif skin_colour in [3, 4]:
-        features["EyeDepth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["EyeDepth"] = clipped_gaussian(2, 1.5, -7, 7) 
+    features["InnerEyeHeight"] = get_feature_value(race_data, "InnerEyeHeight")
+    features["InnerEyePosition"] = get_feature_value(race_data, "InnerEyePosition")
+    features["EyeCornerHeight"] = get_feature_value(race_data, "EyeCornerHeight", -1 if skin_colour in [1, 2] else 0)
+    features["OuterEyePosition"] = get_feature_value(race_data, "OuterEyePosition")
+    features["BottomEyelidHeight"] = get_feature_value(race_data, "BottomEyelidHeight", -1 if skin_colour in [1, 2] else 1)
+    features["EyeDepth"] = get_feature_value(race_data, "EyeDepth", 2 if skin_colour >= 5 else (0 if skin_colour in [3, 4] else -2))
 
     return {k: str(v) for k, v in features.items()}
 
-def generate_eyebrow_features(skin_colour):
+def generate_eyebrow_features(race_data, skin_colour):
     features = {}
 
+    # Random style types
     features["Forehead"] = random.randint(1, 7)
     features["EyebrowType"] = random.randint(1, 8)
+    # Eyebrow style density weight
+    features["EyebrowStyle"] = random.choices([0, 1, 2], weights=[40, 35, 25])[0]
 
-    if skin_colour in [1, 2]:
-        features["EyebrowThickness"] = clipped_gaussian(0.5, 0.6, 0, 2)
-    elif skin_colour in [3, 4]:
-        features["EyebrowThickness"] = clipped_gaussian(1, 0.6, 0, 2)
+    # Gradual features
+    thick_mean = 1.5 if skin_colour >= 5 else (1.0 if skin_colour in [3, 4] else 0.5)
+    features["EyebrowThickness"] = get_feature_value(race_data, "EyebrowThickness", thick_mean, std_dev=0.6, min_val=0, max_val=2)
+
+    dens_mean = 2.5 if skin_colour >= 5 else (2.0 if skin_colour in [3, 4] else 1.0)
+    features["EyebrowDensity"] = get_feature_value(race_data, "EyebrowDensity", dens_mean, std_dev=0.8, min_val=0, max_val=3)
+
+    # Base colours for eyebrows
+    if skin_colour == 1:
+        rgb = (45, 32, 18)
+    elif skin_colour == 2:
+        rgb = (38, 24, 12)
+    elif skin_colour == 3:
+        rgb = (28, 16, 8)
+    elif skin_colour == 4:
+        rgb = (20, 10, 5)
     else:
-        features["EyebrowThickness"] = clipped_gaussian(1.5, 0.6, 0, 2)
+        rgb = (10, 6, 3)
 
-    if skin_colour in [1, 2]:
-        features["EyebrowStyle"] = random.choices([0, 1, 2], weights=[25, 50, 25])[0]
-    else:
-        features["EyebrowStyle"] = random.choices([0, 1, 2], weights=[40, 35, 25])[0]
+    features["EyebrowColourR"] = clipped_gaussian(rgb[0], 8, 0, 63)
+    features["EyebrowColourG"] = clipped_gaussian(rgb[1], 8, 0, 63)
+    features["EyebrowColourB"] = clipped_gaussian(rgb[2], 6, 0, 63)
 
-    if skin_colour in [1, 2]:
-        features["EyebrowDensity"] = clipped_gaussian(1, 0.8, 0, 3)
-    elif skin_colour in [3, 4]:
-        features["EyebrowDensity"] = clipped_gaussian(2, 0.8, 0, 3)
-    else:
-        features["EyebrowDensity"] = clipped_gaussian(2.5, 0.6, 0, 3)
-
-    if skin_colour == 1:  # Pale
-        r = clipped_gaussian(45, 8, 0, 63)
-        g = clipped_gaussian(32, 8, 0, 63)
-        b = clipped_gaussian(18, 6, 0, 63)
-    elif skin_colour == 2:  # White
-        r = clipped_gaussian(38, 8, 0, 63)
-        g = clipped_gaussian(24, 7, 0, 63)
-        b = clipped_gaussian(12, 5, 0, 63)
-    elif skin_colour == 3:  # Medium
-        r = clipped_gaussian(28, 6, 0, 63)
-        g = clipped_gaussian(16, 5, 0, 63)
-        b = clipped_gaussian(8, 4, 0, 63)
-    elif skin_colour == 4:  # Brown
-        r = clipped_gaussian(20, 5, 0, 63)
-        g = clipped_gaussian(10, 4, 0, 63)
-        b = clipped_gaussian(5, 3, 0, 63)
-    else:  # 5, 6: Dark
-        r = clipped_gaussian(10, 4, 0, 63)
-        g = clipped_gaussian(6, 3, 0, 63)
-        b = clipped_gaussian(3, 2, 0, 63)
-
-    features["EyebrowColourR"] = r
-    features["EyebrowColourG"] = g
-    features["EyebrowColourB"] = b
-
-    if skin_colour in [1, 2]:
-        features["InnerEyebrowHeight"] = clipped_gaussian(1, 2, -7, 7)  
-        features["OuterEdyebrowHeight"] = clipped_gaussian(-1, 2, -7, 7) 
-    elif skin_colour in [3, 4]:
-        features["InnerEyebrowHeight"] = clipped_gaussian(0, 2, -7, 7)
-        features["OuterEdyebrowHeight"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["InnerEyebrowHeight"] = clipped_gaussian(-1, 2, -7, 7) 
-        features["OuterEdyebrowHeight"] = clipped_gaussian(1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["BrowWidth"] = clipped_gaussian(-1, 2, -7, 7) 
-    elif skin_colour in [3, 4]:
-        features["BrowWidth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["BrowWidth"] = clipped_gaussian(2, 1.5, -7, 7) 
-
-    features["TempleWidth"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["EyebrowDepth"] = clipped_gaussian(-2, 2, -7, 7) 
-    elif skin_colour in [3, 4]:
-        features["EyebrowDepth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["EyebrowDepth"] = clipped_gaussian(1, 2, -7, 7)  
+    features["InnerEyebrowHeight"] = get_feature_value(race_data, "InnerEyebrowHeight", 1 if skin_colour in [1, 2] else (-1 if skin_colour >= 5 else 0))
+    features["OuterEdyebrowHeight"] = get_feature_value(race_data, "OuterEdyebrowHeight", -1 if skin_colour in [1, 2] else (1 if skin_colour >= 5 else 0))
+    features["BrowWidth"] = get_feature_value(race_data, "BrowWidth", -1 if skin_colour in [1, 2] else (2 if skin_colour >= 5 else 0))
+    features["TempleWidth"] = get_feature_value(race_data, "TempleWidth")
+    features["EyebrowDepth"] = get_feature_value(race_data, "EyebrowDepth", -2 if skin_colour in [1, 2] else (1 if skin_colour >= 5 else 0))
 
     return {k: str(v) for k, v in features.items()}
 
-def generate_nose_features(skin_colour):
+def generate_nose_features(race_data, skin_colour):
     features = {}
 
+    # Random style types
     features["NoseType"] = random.randint(1, 8)
-
     features["LaughterLines"] = random.randint(1, 5)
 
-    if skin_colour in [1, 2]:
-        features["NoseHeight"] = clipped_gaussian(2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["NoseHeight"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["NoseHeight"] = clipped_gaussian(-2, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["NostrilWidth"] = clipped_gaussian(-2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["NostrilWidth"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["NostrilWidth"] = clipped_gaussian(3, 1.5, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["NoseWidth"] = clipped_gaussian(-2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["NoseWidth"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["NoseWidth"] = clipped_gaussian(3, 1.5, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["NoseTipDepth"] = clipped_gaussian(2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["NoseTipDepth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["NoseTipDepth"] = clipped_gaussian(-2, 1.5, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["NoseDepth"] = clipped_gaussian(2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["NoseDepth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["NoseDepth"] = clipped_gaussian(-1, 2, -7, 7)
+    # Nose measurements
+    features["NoseHeight"] = get_feature_value(race_data, "NoseHeight", 2 if skin_colour in [1, 2] else (-2 if skin_colour >= 5 else 0))
+    features["NostrilWidth"] = get_feature_value(race_data, "NostrilWidth", -2 if skin_colour in [1, 2] else (3 if skin_colour >= 5 else 1))
+    features["NoseWidth"] = get_feature_value(race_data, "NoseWidth", -2 if skin_colour in [1, 2] else (3 if skin_colour >= 5 else 1))
+    features["NoseTipDepth"] = get_feature_value(race_data, "NoseTipDepth", 2 if skin_colour in [1, 2] else (-2 if skin_colour >= 5 else 0))
+    features["NoseDepth"] = get_feature_value(race_data, "NoseDepth", 2 if skin_colour in [1, 2] else (-1 if skin_colour >= 5 else 0))
 
     return {k: str(v) for k, v in features.items()}
 
-
-def generate_mouth_features(skin_colour):
+def generate_mouth_features(race_data, skin_colour):
     features = {}
 
+    # Random style types
     features["UpperLipType"] = random.randint(1, 5)
     features["LowerLipType"] = random.randint(1, 5)
 
-    features["MouthPosition"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["LipSize"] = clipped_gaussian(-2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["LipSize"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["LipSize"] = clipped_gaussian(3, 1.5, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["LipWidth"] = clipped_gaussian(-1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["LipWidth"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["LipWidth"] = clipped_gaussian(2, 1.5, -7, 7)
-
-    features["MouthCornerHeight"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["MouthDepth"] = clipped_gaussian(-1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["MouthDepth"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["MouthDepth"] = clipped_gaussian(2, 1.5, -7, 7)
+    # Lip measurements
+    features["MouthPosition"] = get_feature_value(race_data, "MouthPosition")
+    features["LipSize"] = get_feature_value(race_data, "LipSize", -2 if skin_colour in [1, 2] else (3 if skin_colour >= 5 else 1))
+    features["LipWidth"] = get_feature_value(race_data, "LipWidth", -1 if skin_colour in [1, 2] else (2 if skin_colour >= 5 else 1))
+    features["MouthCornerHeight"] = get_feature_value(race_data, "MouthCornerHeight")
+    features["MouthDepth"] = get_feature_value(race_data, "MouthDepth", -1 if skin_colour in [1, 2] else (2 if skin_colour >= 5 else 1))
 
     return {k: str(v) for k, v in features.items()}
 
-def generate_jaw_features(skin_colour):
+def generate_jaw_features(race_data, skin_colour):
     features = {}
 
+    # Random style types
     features["CheekType"] = random.randint(0, 4)
     features["NeckLineType"] = random.randint(0, 4)
 
-    if skin_colour in [1, 2]:
-        features["Cheekbones"] = clipped_gaussian(1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["Cheekbones"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["Cheekbones"] = clipped_gaussian(-1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["ChinHeight"] = clipped_gaussian(1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["ChinHeight"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["ChinHeight"] = clipped_gaussian(-1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["ChinWidth"] = clipped_gaussian(-1, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["ChinWidth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["ChinWidth"] = clipped_gaussian(1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["JawHeight"] = clipped_gaussian(0, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["JawHeight"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["JawHeight"] = clipped_gaussian(1, 2, -7, 7)
-
-    features["Jawline"] = clipped_gaussian(0, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["ChinDepth"] = clipped_gaussian(2, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["ChinDepth"] = clipped_gaussian(0, 2, -7, 7)
-    else:
-        features["ChinDepth"] = clipped_gaussian(-1, 2, -7, 7)
+    # Jaw and chin measurements
+    features["Cheekbones"] = get_feature_value(race_data, "Cheekbones", 1 if skin_colour in [1, 2] else (-1 if skin_colour >= 5 else 0))
+    features["ChinHeight"] = get_feature_value(race_data, "ChinHeight", 1 if skin_colour in [1, 2] else (-1 if skin_colour >= 5 else 0))
+    features["ChinWidth"] = get_feature_value(race_data, "ChinWidth", -1 if skin_colour in [1, 2] else (1 if skin_colour >= 5 else 0))
+    features["JawHeight"] = get_feature_value(race_data, "JawHeight", 1 if skin_colour >= 5 else 0)
+    features["Jawline"] = get_feature_value(race_data, "Jawline")
+    features["ChinDepth"] = get_feature_value(race_data, "ChinDepth", 2 if skin_colour in [1, 2] else (-1 if skin_colour >= 5 else 0))
 
     return {k: str(v) for k, v in features.items()}
 
-
-def generate_ear_features(skin_colour):
+def generate_ear_features(race_data, skin_colour):
     features = {}
 
-    if skin_colour in [1, 2]:
-        features["EarLength"] = clipped_gaussian(0, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["EarLength"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["EarLength"] = clipped_gaussian(1, 2, -7, 7)
-
-    if skin_colour in [1, 2]:
-        features["EarWidth"] = clipped_gaussian(0, 2, -7, 7)
-    elif skin_colour in [3, 4]:
-        features["EarWidth"] = clipped_gaussian(1, 2, -7, 7)
-    else:
-        features["EarWidth"] = clipped_gaussian(1, 2, -7, 7)
-
-    features["EarAngle"] = clipped_gaussian(0, 2, -7, 7)
+    ear_mean = 0 if skin_colour in [1, 2] else 1
+    features["EarLength"] = get_feature_value(race_data, "EarLength", ear_mean)
+    features["EarWidth"] = get_feature_value(race_data, "EarWidth", ear_mean)
+    features["EarAngle"] = get_feature_value(race_data, "EarAngle")
 
     return {k: str(v) for k, v in features.items()}
 
@@ -508,18 +356,8 @@ HAIR_COLOUR_RGB = {
     8: {"r": (55, 5), "g": (22, 5), "b": (5,  3)},   # Red
 }
 
-# Weights by skin colour
-HAIR_COLOUR_WEIGHTS = {
-    1: [10, 15, 20, 10, 20, 10, 10, 5],  # Pale
-    2: [12, 12, 10, 15, 25, 15, 8,  3],  # White
-    3: [5,  5,  2,  25, 30, 25, 5,  3],  # Medium
-    4: [1,  1,  0,  40, 25, 28, 3,  2],  # Brown
-    5: [0,  0,  0,  55, 15, 25, 3,  2],  # Dark
-    6: [0,  0,  0,  65, 10, 20, 3,  2],  # Black
-}
-
-def pick_hair_colour(skin_colour):
-    weights = HAIR_COLOUR_WEIGHTS.get(skin_colour, HAIR_COLOUR_WEIGHTS[3])
+def pick_hair_colour(race_data):
+    weights = race_data.get("hair_weights", [10, 10, 10, 10, 10, 10, 10, 10])
     return random.choices(range(1, 9), weights=weights)[0]
 
 def rgb_from_hair_colour(hair_colour):
@@ -529,16 +367,15 @@ def rgb_from_hair_colour(hair_colour):
     b = clipped_gaussian(palette["b"][0], palette["b"][1], 0, 63)
     return r, g, b
 
-
-def generate_facial_hair_features(skin_colour):
+def generate_facial_hair_features(race_data, skin_colour):
     features = {}
 
-    features["FacialHairType"] = str(
-        0 if random.random() < 0.65 else random.randint(1, 18)
-    )
+    # Random style types
+    features["FacialHairType"] = str(random.randint(0, 18) if random.random() > 0.65 else 0)
     features["Thickness"] = random.randint(0, 3)
 
-    facial_hair_colour = pick_hair_colour(skin_colour)
+    # Hair colour is race-based
+    facial_hair_colour = pick_hair_colour(race_data)
     r, g, b = rgb_from_hair_colour(facial_hair_colour)
 
     features["FacialHairColourR"] = r
@@ -547,11 +384,10 @@ def generate_facial_hair_features(skin_colour):
 
     return {k: str(v) for k, v in features.items()}
 
-
-def generate_hair_features(skin_colour):
+def generate_hair_features(race_data, skin_colour):
     features = {}
 
-    # Random
+    # Hair Style (Random style selections)
     features["Overall-Style"] = random.randint(0, 7)
     features["Overall-Length"] = random.randint(0, 5)
     features["Overall-WaveLevel"] = random.randint(0, 7)
@@ -563,16 +399,16 @@ def generate_hair_features(skin_colour):
     features["Side/Back-Style"] = random.randint(0, 4)
     features["Side/Back-Cropped"] = random.randint(0, 6)
 
-    # Chances of getting a custom colour
+    # Hair color (10% chance of custom logic)
     use_custom = random.random() < 0.1
 
     if use_custom:
-        if random.random() < 0.05: # Full random, flashy colours possible
+        if random.random() < 0.05: # Rare random colors
             features["HairColourR"] = random.randint(0, 63)
             features["HairColourG"] = random.randint(0, 63)
             features["HairColourB"] = random.randint(0, 63)
         else:
-            hair_colour_ref = pick_hair_colour(skin_colour)
+            hair_colour_ref = pick_hair_colour(race_data)
             r, g, b = rgb_from_hair_colour(hair_colour_ref)
             features["HairColourR"] = r
             features["HairColourG"] = g
@@ -580,7 +416,7 @@ def generate_hair_features(skin_colour):
         features["AccessoryColour"] = random.randint(1, 8)
         features["HairColour"] = 9
     else:
-        hair_colour = pick_hair_colour(skin_colour)
+        hair_colour = pick_hair_colour(race_data)
         r, g, b = rgb_from_hair_colour(hair_colour)
         features["HairColourR"] = r
         features["HairColourG"] = g
@@ -591,45 +427,51 @@ def generate_hair_features(skin_colour):
     features["Accessories"] = "True" if random.randint(1, 10000) == 1 else "False"
     return {k: str(v) for k, v in features.items()}
 
-
-def generate_appearance(skin_colour=None):
-    if skin_colour is None:
-        skin_colour = random.randint(1, 6)
+def generate_appearance(race_id=None):
+    # Race Selection
+    if race_id is None:
+        race_id = random.choices(RACE_IDS, weights=RACE_WEIGHTS)[0]
+    
+    race_data = RACE_GROUPS.get(race_id.lower(), RACE_GROUPS["random"])
+    
+    # Skin colour selection based on race range
+    skin_min, skin_max = race_data["skin_range"]
+    skin_colour = random.randint(skin_min, skin_max)
 
     appearance = {}
 
     # Physique
-    appearance["NeckLength"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["NeckSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ShoulderHeight"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ShoulderWidth"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ChestMeasurement"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["WaistSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ArmSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ThighSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["CalfSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["LegLength"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["ArmLength"] = str(clipped_gaussian(0, 2.5, -7, 7))
+    appearance["NeckLength"] = str(get_feature_value(race_data, "NeckLength", 0, std_dev=2.5))
+    appearance["NeckSize"] = str(get_feature_value(race_data, "NeckSize", 0, std_dev=2.5))
+    appearance["ShoulderHeight"] = str(get_feature_value(race_data, "ShoulderHeight", 0, std_dev=2.5))
+    appearance["ShoulderWidth"] = str(get_feature_value(race_data, "ShoulderWidth", 0, std_dev=2.5))
+    appearance["ChestMeasurement"] = str(get_feature_value(race_data, "ChestMeasurement", 0, std_dev=2.5))
+    appearance["WaistSize"] = str(get_feature_value(race_data, "WaistSize", 0, std_dev=2.5))
+    appearance["ArmSize"] = str(get_feature_value(race_data, "ArmSize", 0, std_dev=2.5))
+    appearance["ThighSize"] = str(get_feature_value(race_data, "ThighSize", 0, std_dev=2.5))
+    appearance["CalfSize"] = str(get_feature_value(race_data, "CalfSize", 0, std_dev=2.5))
+    appearance["LegLength"] = str(get_feature_value(race_data, "LegLength", 0, std_dev=2.5))
+    appearance["ArmLength"] = str(get_feature_value(race_data, "ArmLength", 0, std_dev=2.5))
     appearance["SkinColour"] = str(skin_colour)
 
     # Head
-    appearance["HeadLength"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["HeadWidth"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["HeadDepth"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["FaceHeight"] = str(clipped_gaussian(0, 2.5, -7, 7))
-    appearance["FaceSize"] = str(clipped_gaussian(0, 2.5, -7, 7))
+    appearance["HeadLength"] = str(get_feature_value(race_data, "HeadLength", 0, std_dev=2.5))
+    appearance["HeadWidth"] = str(get_feature_value(race_data, "HeadWidth", 0, std_dev=2.5))
+    appearance["HeadDepth"] = str(get_feature_value(race_data, "HeadDepth", 0, std_dev=2.5))
+    appearance["FaceHeight"] = str(get_feature_value(race_data, "FaceHeight", 0, std_dev=2.5))
+    appearance["FaceSize"] = str(get_feature_value(race_data, "FaceSize", 0, std_dev=2.5))
 
-    # Face
-    appearance.update(generate_eye_features(skin_colour))
-    appearance.update(generate_eyebrow_features(skin_colour))
-    appearance.update(generate_nose_features(skin_colour))
-    appearance.update(generate_mouth_features(skin_colour))
-    appearance.update(generate_facial_hair_features(skin_colour))
-    appearance.update(generate_jaw_features(skin_colour))
-    appearance.update(generate_ear_features(skin_colour))
-    appearance.update(generate_hair_features(skin_colour))
+    # Face Features - pass race_data to all sub-functions
+    appearance.update(generate_eye_features(race_data, skin_colour))
+    appearance.update(generate_eyebrow_features(race_data, skin_colour))
+    appearance.update(generate_nose_features(race_data, skin_colour))
+    appearance.update(generate_mouth_features(race_data, skin_colour))
+    appearance.update(generate_facial_hair_features(race_data, skin_colour))
+    appearance.update(generate_jaw_features(race_data, skin_colour))
+    appearance.update(generate_ear_features(race_data, skin_colour))
+    appearance.update(generate_hair_features(race_data, skin_colour))
 
-    # Strip
+    # Strip / Gear
     appearance["Wristtaping"] = str(random.randint(0, 4))
     appearance["WristTapeColour1"] = str(random.randint(0, 10))
     appearance["WristTapeColour2"] = str(random.randint(0, 10))
@@ -642,25 +484,8 @@ def generate_appearance(skin_colour=None):
     appearance["SockLength"] = str(random.randint(0, 2))
     appearance["Long-SleevedInners"] = str(random.randint(0, 2))
 
-    # Misc
-    appearance["ValueAp1"] = "0"
-    appearance["ValueAp2"] = "0"
-    appearance["ValueAp3"] = "0"
-    appearance["ValueAp4"] = "0"
-    appearance["ValueAp5"] = "0"
-    appearance["ValueAp6"] = "0"
-    appearance["ValueAp7"] = "0"    
-    appearance["ValueAp8"] = "0"
-    appearance["ValueAp9"] = "0"
-    appearance["ValueAp10"] = "0"
-    appearance["ValueAp11"] = "0"
-    appearance["ValueAp12"] = "0"
-    appearance["ValueAp13"] = "0"    
-    appearance["ValueAp14"] = "0"
-    appearance["ValueAp15"] = "0"
-    appearance["ValueAp16"] = "0"
-    appearance["ValueAp17"] = "0"
-    appearance["ValueAp18"] = "0"
-    appearance["ValueAp19"] = "0"
+    # Misc value padding
+    for i in range(1, 20):
+        appearance[f"ValueAp{i}"] = "0"
 
     return appearance
