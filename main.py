@@ -4,7 +4,7 @@ import os
 from config import COUNTRY_CODES
 
 from basics import (
-    detect_playing_style, generate_id, generate_shirt_name, generate_country_code,
+    detect_playing_style, generate_id, generate_shirt_name, format_name, generate_country_code,
     generate_height, generate_weight, generate_foot, generate_age,
     generate_weak_foot_stats, generate_form, generate_injury_resistance,
     generate_position_code, generate_position_aptitudes, generate_playing_style
@@ -36,6 +36,7 @@ class PlayerGenerator:
         - Rating: int (40-109)
         - PlayingStyle: str
         - Id: str
+        - Race: str
         
         example:
         player = generator.generate_player(
@@ -53,9 +54,11 @@ class PlayerGenerator:
         
         # Basic data
         player_id = kwargs.get("Id", generate_id())
-        name = kwargs.get("Name", "UNNAMED")
+        nameinput = kwargs.get("Name", "UNNAMED")
+        name = format_name(nameinput)
         shirt_name = kwargs.get("Shirt", generate_shirt_name(name))
         shirt_national = kwargs.get("ShirtNational", generate_shirt_name(name))
+        race_id = kwargs.pop("Race", None)
 
         # country = kwargs.get("Country", generate_country_code())
         country_input = kwargs.get("Country", generate_country_code())
@@ -87,17 +90,17 @@ class PlayerGenerator:
 
         # Detect the playing style
         detected_style = detect_playing_style(position, abilities)
-
-        playing_style = detected_style
+        
+        if playing_style is None:
+            playing_style = detected_style
         
         # Skills
         skills = generate_skills(position, rating)
         
         # Motions
         motions = generate_motions()
-        
         # Appearance
-        appearance = generate_appearance()
+        appearance = generate_appearance(race_id=race_id)
         
         # Constructor
         player = {
@@ -142,7 +145,7 @@ class PlayerGenerator:
         player["MarketValue"] = "0"
         player["NationalCaps"] = "0"
         player["Legend"] = "False"
-        player["Hand"] = "False"
+        player["Hand"] = foot
         player["WinnerGoldenBall"] = "False"
         
         # MISC
