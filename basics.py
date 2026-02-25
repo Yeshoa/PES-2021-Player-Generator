@@ -17,12 +17,9 @@ def generate_shirt_name(name):
 def format_name(name):
     name = name.upper()
     parts = name.split()
-    for i in range(len(parts)-1):
-        parts[i] = parts[i][0] + "."
     last_name = parts[-1]
-    first_names = parts[:-1]
-    print(first_names, last_name)
-    return " ".join(first_names) + " " + last_name
+    first_names = [part[0] + "." for part in parts[:-1]]
+    return (" ".join(first_names) + " " + last_name).strip()
 
 def generate_country_code():
     return str(random.choice(list(COUNTRY_CODES.values())))
