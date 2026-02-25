@@ -41,14 +41,43 @@ player = generator.generate_player(
 ```python
 from main import save_player_json, save_team_json
 
-save_player_json(player, "mi_jugador.json")
-save_team_json(team, "mi_equipo.json")
+save_player_json(player, "my_player.json")
 ```
+
+### Generate a team in JSON or CSV format
+
+```python
+import json
+import os
+import csv
+from main import PlayerGenerator
+
+northern_stars_players = [
+    {"Id": "20001", "Name": "Ethan BLACKWOOD", "Position": "GK", "Height": 192, "Country": "Germany", "Rating": 87},
+    {"Id": "20002", "Name": "Liam STONEBRIDGE", "Position": "CB", "Height": 188, "Country": "Germany", "Rating": 85},
+    # ...
+]
+
+generator = PlayerGenerator()
+
+# Generate team in JSON format (one file per player, creates a folder)
+generate_team("Northern Stars", northern_stars_players, generator)
+
+# Generate team in CSV format (single file)
+generate_team_csv("Northern Stars CSV", northern_stars_players, generator)
+
+# Generate multiple teams in CSV format (single file)
+all_teams = {
+    "Northern Stars": northern_stars_players,
+    # "Southern Stars": southern_stars_players
+}
+generate_teams_csv(all_teams, generator)
 
 ## Available parameters for generate_player()
 
 Actually, any parameter is available
 
+- **Id**: this is mostly used when generating a full team
 - **Name**: No idea whats the max length
 - **Position**: (GK, CB, LB, RB, DMF, CMF, LMF, RMF, AMF, LWF, RWF, SS, CF)
 - **Age**: (15-50)
@@ -58,6 +87,6 @@ Actually, any parameter is available
 - **Foot**: "Left" o "Right"
 - **Rating**: (40-109)
 - **PlayingStyle**: See basics.py (0-21)
-- **Id**: this is mostly used when generating a full team
 - **Form**: (1-8)
 - **InjuryResistance**: (1-3)
+```
