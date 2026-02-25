@@ -140,8 +140,8 @@ class PlayerGenerator:
         # General data for the editor
         player["YouthClub"] = "0"
         player["OwnerClub"] = "0"
-        player["ContractUntil"] = "1/1/0001 12:00:00 AM"
-        player["LoanUntil"] = "1/1/0001 12:00:00 AM"
+        player["ContractUntil"] = "1/1/2101 12:00:00 AM"
+        player["LoanUntil"] = "1/1/2101 12:00:00 AM"
         player["MarketValue"] = "0"
         player["NationalCaps"] = "0"
         player["Legend"] = "False"
