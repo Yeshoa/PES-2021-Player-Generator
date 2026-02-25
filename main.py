@@ -206,8 +206,3 @@ def save_player_json(player, filename="player.json"):
     filepath = os.path.join(jugadores_dir, filename)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(player, f, ensure_ascii=False, indent=2)
-
-
-def save_team_json(team, filename="team.json"):
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(team, f, ensure_ascii=False, indent=2)
